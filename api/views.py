@@ -3,6 +3,7 @@ from .models import Book
 from .serializers import BookSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -47,7 +48,7 @@ def deletebook(request, isbn):
     try:
         book = Book.objects.get(isbn=isbn)
     except Book.DoesNotExist:
-        return Response(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
     
     book.delete()
-    return Response(status=204)
+    return Response(status=status.HTTP_204_NO_CONTENT)
